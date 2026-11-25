@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Connected | LYCH Video Uploader</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>TikTok sign-in</h1>
+<div class="box" id="result"><p>Reading the sign-in result...</p></div>
+<script>
+  var p = new URLSearchParams(window.location.search);
+  var box = document.getElementById("result");
+  if (p.get("code")) {
+    box.innerHTML = "<p>Access approved. Copy this code back into the uploader on your PC:</p><p><code id='c'></code></p><p>The code expires in a few minutes and works only once.</p>";
+    document.getElementById("c").textContent = p.get("code");
+  } else if (p.get("error")) {
+    box.innerHTML = "<p>Sign-in was cancelled or failed:</p><p><code id='e'></code></p>";
+    document.getElementById("e").textContent = p.get("error") + (p.get("error_description") ? ": " + p.get("error_description") : "");
+  } else {
+    box.innerHTML = "<p>This page receives the result after you sign in with TikTok. There's nothing to show yet.</p>";
+  }
+</script>
+</body>
+</html>
